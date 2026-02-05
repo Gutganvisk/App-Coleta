@@ -1,0 +1,47 @@
+{
+  "material-icon-theme.activeIconPack": "react_redux",
+  "workbench.iconTheme": "material-icon-theme",
+  "material-icon-theme.folders.associations": {
+    "domain": "class",
+    "application": "controller",
+    "infrastructure": "postgresql",
+    "presentation": "interface",
+    "entities": "typescript",
+    "aggregates": "packages",
+    "value-objects": "value",
+    "repositories": "database",
+    "use-cases": "controller",
+    "dtos": "interface",
+    "mappers": "convert",
+    "data": "database",
+    "local": "database",
+    "remote": "cloudflare",
+    "di": "container",
+    "views": "layout",
+    "components": "toc",
+    "view-models": "redux",
+    "modules": "modules",
+    "tests": "test",
+    "unit": "test",
+    "integration": "test",
+    "coleta": "plugin",
+    "relatorios": "plugin",
+    "sincronizacao": "plugin",
+    "navigators": "routes",
+    "viewModels": "views",
+    "feedback": "messages",
+    "forms": "input",
+    "lists": "resource",
+    "ui": "decorators",
+  },
+  "explorer.compactFolders": false,
+  "editor.formatOnSave": true,
+  "files.associations": {
+    "*.entity.ts": "typescript",
+    "*.use-case.ts": "typescript",
+    "*.screen.tsx": "typescriptreact"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

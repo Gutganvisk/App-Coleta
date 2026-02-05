@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "pkief.material-icon-theme",
+    "sleistner.vscode-fileutils",
+    "alefragnani.project-manager",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "ms-vscode.vscode-typescript-next",
+    "gruntfuggly.todo-tree"
+  ]
+}
