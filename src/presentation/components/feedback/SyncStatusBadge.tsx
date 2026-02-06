@@ -1,0 +1,1 @@
+//Indicador de online e offline

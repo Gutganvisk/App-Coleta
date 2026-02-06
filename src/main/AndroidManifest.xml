@@ -1,0 +1,9 @@
+<manifest>
+  <!-- Permissão para escrever no storage -->
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  
+  <application
+    android:requestLegacyExternalStorage="true"
+    ...>
+  </application>
+</manifest>
