@@ -14,18 +14,21 @@ interface AppProps {
   }) => void;
 }
 
-interface Feirante {
-  id: number;
-  nome: string;
-}
-
 export default function App({ onAdd }: AppProps) {
   const [feiranteSelecionado, setFeirantesSelecionado] = useState(feirante[0]?.nome || "");
   const [produtoSelecionado, SetProdutoSelecionado] = useState<string | number>(produtos[0]?.id || "");
   const [quantidade, setQuantidade] = useState("");
 
-  const handlerAdcionar = () => {
+  const validarCampos = () => {
     if (produtoSelecionado && feiranteSelecionado && quantidade) {
+      Alert.alert("Atenção","Por favor, preencha todos os campos");
+      return false;
+    }
+    return true;
+  };
+  const handlerAdicionar = () => {
+    if (!validarCampos()) return;
+
       const produtoEncontrado = produtos.find(p=> p.id === produtoSelecionado)
 
       if (!produtoEncontrado) {
@@ -41,21 +44,16 @@ export default function App({ onAdd }: AppProps) {
         feirante: feiranteSelecionado,
         quantidade,
         data: dataFormatada,
-        nome: produtoEncontrado.nome,
       };
 
       adicionarRegistro(registro)
 
       if (onAdd) {
-        onAdd({
-           produto: registro.produto,
-          feirante: registro.feirante,
-          quantidade: registro.quantidade,
-          data: registro.data,
-        });
+        onAdd(registro);
       }
 
       setQuantidade("")
+      
       Alert.alert(
         "Registro adicionado com sucesso!", 
         `Feirante: ${registro.feirante}\n
@@ -75,10 +73,7 @@ export default function App({ onAdd }: AppProps) {
         ]
       );
       console.log("Registro adicionado: ", registro)
-    }else{
-      Alert.alert("Atenção", "Por favor, preencha todos os campos")
     }
-  }
 
   return (
     <ScrollView 
@@ -117,7 +112,7 @@ export default function App({ onAdd }: AppProps) {
           style={styles.button}
           onPress={() => {
             Keyboard.dismiss();
-            handlerAdcionar();
+            handlerAdicionar();
           }}
               disabled={!produtoSelecionado || !feiranteSelecionado || !quantidade}
           activeOpacity={0.5}
@@ -153,6 +148,7 @@ const styles = StyleSheet.create({
     },
   input: { 
     borderWidth: 1,
+    borderColor: '#ccc',
     padding: 12,
     marginBottom: 40,
     borderRadius: 5,

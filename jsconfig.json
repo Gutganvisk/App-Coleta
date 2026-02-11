@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "jsx": "react-native",
+    "target": "esnext",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"],
+      "react": ["node_modules/@types/react"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js"
+  ]
+}
