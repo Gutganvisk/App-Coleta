@@ -20,7 +20,7 @@ export default function App({ onAdd }: AppProps) {
   const [quantidade, setQuantidade] = useState("");
 
   const validarCampos = () => {
-    if (produtoSelecionado && feiranteSelecionado && quantidade) {
+    if (!produtoSelecionado && !feiranteSelecionado && !quantidade) {
       Alert.alert("Atenção","Por favor, preencha todos os campos");
       return false;
     }
@@ -87,17 +87,31 @@ export default function App({ onAdd }: AppProps) {
         </View>
         <View style={styles.formContainer}>
         <Text style={styles.title}>Feirante</Text>
-        <Picker selectedValue={feiranteSelecionado} onValueChange={setFeirantesSelecionado} style={styles.picker}>
-          {feirante.map(p => (
-            <Picker.Item key={p.id} label={p.nome} value={p.nome} />
-          ))}
-        </Picker>
+        <View style={styles.pickerContainer}>
+          <Picker 
+            selectedValue={feiranteSelecionado} 
+            onValueChange={setFeirantesSelecionado} 
+            style={styles.picker}
+            dropdownIconColor="#2E7D32"
+          >
+            {feirante.map(p => (
+              <Picker.Item key={p.id} label={p.nome} value={p.nome} color='#000000'/>
+            ))}
+          </Picker>
+        </View>
         <Text style={styles.title}>Produto</Text>
-        <Picker selectedValue={produtoSelecionado} onValueChange={SetProdutoSelecionado} style={styles.picker}>
-          {produtos.map(p => (
-            <Picker.Item key={p.id} label={p.nome} value={p.id} />
-          ))}
-        </Picker>
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={produtoSelecionado} 
+            onValueChange={SetProdutoSelecionado} 
+            style={styles.picker}
+            dropdownIconColor="#2E7D32"
+            >
+            {produtos.map(p => (
+              <Picker.Item key={p.id} label={p.nome} value={p.id} color='#000000'/>
+            ))}
+          </Picker>
+        </View>
         <Text style={styles.title}>Quantidade</Text>
         <TextInput
           style={styles.input}
@@ -188,5 +202,13 @@ const styles = StyleSheet.create({
   bottomSpace: {
     height: 60,
     width: '100%',
+  },
+  pickerContainer: {
+    borderWidth: 1,
+    borderColor: "#bebebe",
+    borderRadius: 5,
+    marginBottom: 40,
+    backgroundColor: '#fff',
+    overflow: 'hidden',
   },
 });
