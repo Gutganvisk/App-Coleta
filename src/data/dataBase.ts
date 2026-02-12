@@ -1,4 +1,5 @@
 export const produtos = [
+  { id: 0, nome: "Selecione o Produto" },
   { id: 1, nome: "Abacaxi" },
   { id: 2, nome: "Abóbora" },
   { id: 3, nome: "Banana" },
@@ -24,6 +25,7 @@ export const produtos = [
 ];
 
 export const feirante = [
+  { id: 0, nome: "Selecione o Feirante" },
   { id: 1, nome: "Alfredo" },
   { id: 2, nome: "Amarildo" },
   { id: 3, nome: "Ariel" },

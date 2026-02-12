@@ -335,7 +335,7 @@ registroFeirante: {
     color: '#666',
   },
   bottomSpace: {
-    height: 60,
+    height: 450,
     width: '100%',
   }
 });

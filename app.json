@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "App-Coleta",
-    "slug": "App-Coleta",
+    "name": "Coleta",
+    "slug": "Coleta",
     "version": "1.0.0",
-    "runtimeVersion": "1.0.1",
+    "runtimeVersion": "2.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -21,7 +21,7 @@
       "package": "com.iater.appcoleta",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#2E7D32"
       }
     },
     "web": {
@@ -35,6 +35,9 @@
       "eas": {
         "projectId": "dddfd954-5c51-4fa0-93a4-b81573288365"
       }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/dddfd954-5c51-4fa0-93a4-b81573288365"
     }
   }
 }
