@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TextInput, Alert, TouchableOpacity, Keyboard, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Alert, Keyboard, ScrollView, Pressable } from 'react-native';
 import { Picker } from "@react-native-picker/picker";
 import { Logo } from '../../assets/index';
 import { produtos, feirante, adicionarRegistro } from "../data/dataBase";
@@ -19,9 +19,6 @@ export default function App({ onAdd }: AppProps) {
   const [produtoSelecionado, setProdutoSelecionado] = useState<number>(produtos[0]?.id || 0);
   const [quantidade, setQuantidade] = useState("");
 
-  const validarCampos = () => {
-    
-  };
   const handlerAdicionar = () => {
     if (feiranteSelecionado === "Selecione o Feirante") {
       Alert.alert("Erro", "Por favor, selecione um feirante.");
@@ -48,7 +45,7 @@ export default function App({ onAdd }: AppProps) {
       const registro = {
         produto: produtoEncontrado.nome,
         feirante: feiranteSelecionado,
-        quantidade,
+        quantidade: quantidade.trim(),
         data: dataFormatada,
       };
 
@@ -93,7 +90,6 @@ export default function App({ onAdd }: AppProps) {
         <View>
           <Image source={Logo} style={styles.logo}/>
           {/* <Text>LOGO AQUI</Text> */}
-          <Text style={{color: 'red', fontSize: 20}}>UPDATE FUNCIONOU!</Text>
         </View>
         <View style={styles.formContainer}>
         <Text style={styles.title}>Feirante</Text>
@@ -105,7 +101,11 @@ export default function App({ onAdd }: AppProps) {
             dropdownIconColor="#2E7D32"
           >
             {feirante.map(p => (
-              <Picker.Item key={p.id} label={p.nome} value={p.nome} color={p.id === 0 ? "#999" : "#000"}/>
+              <Picker.Item 
+              key={p.id} 
+              label={p.nome} 
+              value={p.nome} 
+              color={p.id === 0 ? "#999" : "#000"}/>
             ))}
           </Picker>
         </View>
@@ -118,7 +118,11 @@ export default function App({ onAdd }: AppProps) {
             dropdownIconColor="#2E7D32"
             >
             {produtos.map(p => (
-              <Picker.Item key={p.id} label={p.nome} value={p.id} color={p.id === 0 ? "#999" : "#000"}/>
+              <Picker.Item 
+              key={p.id} 
+              label={p.nome} 
+              value={p.id} 
+              color={p.id === 0 ? "#999" : "#000"}/>
             ))}
           </Picker>
         </View>
@@ -133,19 +137,28 @@ export default function App({ onAdd }: AppProps) {
           returnKeyType="done"
           onSubmitEditing={() => Keyboard.dismiss()}
         />
-        <TouchableOpacity
-          style={styles.button}
+        <Pressable
+          style={({ pressed }) => [
+            styles.button,
+            pressed && styles.buttonPressed,
+            (!produtoSelecionado || !feiranteSelecionado || !quantidade) && styles.buttonDisabled
+          ]}
           onPress={() => {
-            Keyboard.dismiss();
-            handlerAdicionar();
+            Keyboard.dismiss()
+            handlerAdicionar
           }}
-              disabled={!produtoSelecionado || !feiranteSelecionado || !quantidade}
-          activeOpacity={0.5}
-          onPressIn={() => {}}
-          onPressOut={() => {}}>
-            <Text style={styles.buttonText}>Adicionar Registro</Text>
-        </TouchableOpacity >
-        <StatusBar style="light" />
+          disabled={!produtoSelecionado || !feiranteSelecionado || !quantidade}
+        >
+          {({ pressed }) => (
+            <Text style={[
+                styles.buttonText,                
+                pressed && styles.buttonTextPressed
+            ]}>
+              Adicionar Registro
+            </Text>
+          )}
+        </Pressable>
+        <StatusBar style="auto" />
 
         <View style={styles.bottomSpace} />
 
@@ -173,10 +186,26 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#2E7D32",
     marginBottom: 10,
-    },
+  },
+    pickerContainer: {
+    borderWidth: 1,
+    borderColor: "#bebebe",
+    borderRadius: 5,
+    marginBottom: 20,
+    backgroundColor: '#fff',
+    overflow: 'hidden',
+  },
+    picker: {
+    height:50,
+    width: '100%',
+    borderWidth: 1,
+    borderColor: "#bebebe",
+    borderRadius: 5,
+    backgroundColor: '#f9f9f9',
+  },
   input: { 
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#bebebe',
     padding: 12,
     paddingBottom: 16,
     marginBottom: 40,
@@ -188,37 +217,35 @@ const styles = StyleSheet.create({
   logo: {
     height: 180,
     aspectRatio: 3344 / 2077,
-    marginBottom: 40,
-  },
-  picker: {
-    borderWidth: 1,
-    borderColor: "#bebebe",
-    borderRadius: 5,
-    backgroundColor: '#f9f9f9',
-    width: '100%',
+    marginBottom: 30,
   },
   button: {
     backgroundColor: "#2E7D32",
     paddingHorizontal: 24,
-    paddingVertical: 10,
+    paddingVertical: 14,
     borderRadius: 10,
     alignSelf: 'flex-end',
     minWidth: 200,
   },
+  buttonPressed: {
+  backgroundColor: "#1B5E20",
+  transform: [{ scale: 0.98 }],
+  },
+  buttonTextPressed: {
+    color: "#fff",
+  },
+  buttonDisabled: {
+    backgroundColor: "#9E9E9E",
+    opacity: 0.6,
+  },
   buttonText: {
-    color: "#FFF",
+    color: "#fff",
     fontWeight: "bold",
     textAlign: 'center',
+    fontSize: 16,
   },
   bottomSpace: {
     height: 60,
     width: '100%',
-  },
-  pickerContainer: {
-    borderWidth: 1,
-    borderColor: "#bebebe",
-    borderRadius: 5,
-    backgroundColor: '#fff',
-    overflow: 'hidden',
   },
 });
