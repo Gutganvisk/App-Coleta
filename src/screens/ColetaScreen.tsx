@@ -15,20 +15,26 @@ interface AppProps {
 }
 
 export default function App({ onAdd }: AppProps) {
-  const [feiranteSelecionado, setFeirantesSelecionado] = useState(feirante[0]?.nome || "");
-  const [produtoSelecionado, SetProdutoSelecionado] = useState<string | number>(produtos[0]?.id || "");
+  const [feiranteSelecionado, setFeiranteSelecionado] = useState(feirante[0]?.nome || "Selecione o Feirante");
+  const [produtoSelecionado, setProdutoSelecionado] = useState<number>(produtos[0]?.id || 0);
   const [quantidade, setQuantidade] = useState("");
 
   const validarCampos = () => {
-    if (!produtoSelecionado || !feiranteSelecionado || !quantidade) {
-      Alert.alert("Atenção","Por favor, preencha todos os campos");
-      return false;
-    }
-    return true;
+    
   };
   const handlerAdicionar = () => {
-    if (!validarCampos()) return;
-
+    if (feiranteSelecionado === "Selecione o Feirante") {
+      Alert.alert("Erro", "Por favor, selecione um feirante.");
+      return;
+    }
+    if (produtoSelecionado === 0) {
+      Alert.alert("Erro", "Por favor, selecione um produto.");
+      return;
+    }
+    if (!quantidade || isNaN(Number(quantidade)) || Number(quantidade) <= 0) {
+      Alert.alert("Erro", "Por favor, insira uma quantidade válida.");
+      return;
+    }
       const produtoEncontrado = produtos.find(p=> p.id === produtoSelecionado)
 
       if (!produtoEncontrado) {
@@ -73,6 +79,9 @@ export default function App({ onAdd }: AppProps) {
         ]
       );
       console.log("Registro adicionado: ", registro)
+      setFeiranteSelecionado("Selecione um feirante...");
+      setProdutoSelecionado(0);
+      setQuantidade("");
     }
 
   return (
@@ -91,12 +100,12 @@ export default function App({ onAdd }: AppProps) {
         <View style={styles.pickerContainer}>
           <Picker 
             selectedValue={feiranteSelecionado} 
-            onValueChange={setFeirantesSelecionado} 
+            onValueChange={setFeiranteSelecionado} 
             style={styles.picker}
             dropdownIconColor="#2E7D32"
           >
             {feirante.map(p => (
-              <Picker.Item key={p.id} label={p.nome} value={p.nome} color='#000000'/>
+              <Picker.Item key={p.id} label={p.nome} value={p.nome} color={p.id === 0 ? "#999" : "#000"}/>
             ))}
           </Picker>
         </View>
@@ -104,12 +113,12 @@ export default function App({ onAdd }: AppProps) {
         <View style={styles.pickerContainer}>
           <Picker
             selectedValue={produtoSelecionado} 
-            onValueChange={SetProdutoSelecionado} 
+            onValueChange={setProdutoSelecionado} 
             style={styles.picker}
             dropdownIconColor="#2E7D32"
             >
             {produtos.map(p => (
-              <Picker.Item key={p.id} label={p.nome} value={p.id} color='#000000'/>
+              <Picker.Item key={p.id} label={p.nome} value={p.id} color={p.id === 0 ? "#999" : "#000"}/>
             ))}
           </Picker>
         </View>
@@ -120,6 +129,7 @@ export default function App({ onAdd }: AppProps) {
           value={quantidade}
           onChangeText={setQuantidade}
           placeholder="Digite a quantidade"
+          placeholderTextColor="#999"
           returnKeyType="done"
           onSubmitEditing={() => Keyboard.dismiss()}
         />
@@ -168,6 +178,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     padding: 12,
+    paddingBottom: 16,
     marginBottom: 40,
     borderRadius: 5,
     fontSize: 16,
@@ -183,7 +194,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#bebebe",
     borderRadius: 5,
-    marginBottom: 10,
     backgroundColor: '#f9f9f9',
     width: '100%',
   },
@@ -208,7 +218,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#bebebe",
     borderRadius: 5,
-    marginBottom: 40,
     backgroundColor: '#fff',
     overflow: 'hidden',
   },
