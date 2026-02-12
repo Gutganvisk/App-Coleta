@@ -159,6 +159,7 @@ const StatCard = ({titulo, valor, icone, cor }: any) => (
       </View>
     </>
     )}
+    <View style={styles.bottomSpace} />
   </ScrollView>
   );
 }
@@ -333,4 +334,8 @@ registroFeirante: {
     fontSize: 14,
     color: '#666',
   },
+  bottomSpace: {
+    height: 60,
+    width: '100%',
+  }
 });
