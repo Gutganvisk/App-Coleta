@@ -121,6 +121,9 @@ export default function App({ onAdd }: AppProps) {
             <Text style={styles.buttonText}>Adicionar Registro</Text>
         </TouchableOpacity >
         <StatusBar style="light" />
+
+        <View style={styles.bottomSpace} />
+
         </View>
       </View>
     </ScrollView>
@@ -181,5 +184,9 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontWeight: "bold",
     textAlign: 'center',
-  }
+  },
+  bottomSpace: {
+    height: 60,
+    width: '100%',
+  },
 });

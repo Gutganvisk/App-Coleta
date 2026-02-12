@@ -8,6 +8,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import ColetaScreen from "../screens/ColetaScreen";
 import RelatoriosScreen from '../screens/RelatoriosScreen';
+import CustomDrawer from '../components/CustomDrawer';
 
 const Drawer = createDrawerNavigator();
 
@@ -15,6 +16,8 @@ export default function AppNavigator() {
     return (
         <NavigationContainer>
             <Drawer.Navigator
+                drawerContent={(props) => <CustomDrawer {...props} />} 
+
                 screenOptions={{
                     drawerStyle: {
                         backgroundColor: '#fff',
@@ -22,7 +25,7 @@ export default function AppNavigator() {
                     },
                     drawerLabelStyle: {
                         fontSize: 16,
-                        marginLeft: -20,
+                        marginLeft: 15,
                     },
                     drawerActiveTintColor: '#2E7D32',
                     drawerInactiveTintColor: '#666',
@@ -40,7 +43,7 @@ export default function AppNavigator() {
             component={ColetaScreen}
             options={{
                     drawerIcon: ({ color, size }) => (
-                      <MaterialIcons name="add-shopping-cart" color={color} size={size} />
+                      <MaterialIcons name="note-add" color={color} size={size} />
                     ),
                 }}
             />
@@ -49,7 +52,7 @@ export default function AppNavigator() {
                     component={RelatoriosScreen}
                     options={{
                         drawerIcon: ({ color, size }) => (
-                            <MaterialIcons name="bar-chart" color={color} size={size} />
+                            <MaterialIcons name="storage" color={color} size={size} />
                         ),
                     }}
                 />
