@@ -20,7 +20,7 @@ export default function App({ onAdd }: AppProps) {
   const [quantidade, setQuantidade] = useState("");
 
   const validarCampos = () => {
-    if (!produtoSelecionado && !feiranteSelecionado && !quantidade) {
+    if (!produtoSelecionado || !feiranteSelecionado || !quantidade) {
       Alert.alert("Atenção","Por favor, preencha todos os campos");
       return false;
     }
@@ -84,6 +84,7 @@ export default function App({ onAdd }: AppProps) {
         <View>
           <Image source={Logo} style={styles.logo}/>
           {/* <Text>LOGO AQUI</Text> */}
+          <Text style={{color: 'red', fontSize: 20}}>UPDATE FUNCIONOU!</Text>
         </View>
         <View style={styles.formContainer}>
         <Text style={styles.title}>Feirante</Text>
